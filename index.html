@@ -1,83 +1,194 @@
-<!DOCTYPE html>
 <html>
- 	<head>
-		<title>The Fansub Database</title>
+	<head>
+		<meta charset="UTF-8">
+		<title>FansubDB - Automne 2014</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+		<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+		<style>
+		.mdl-layout__drawer-button .material-icons{
+			margin-top: 12px;
+		}
+	.mdl-card--horizontal {
+		flex-direction: column;
+		height: 1vh;
+		padding-left: 150px;
+		width: 100%;
+	}
+	.mdl-card--horizontal .mdl-card__media {
+		left: 0;
+		position: absolute;
+		width: 150px;
+	}
+	.mdl-card--horizontal .mdl-card__supporting-text {
+		flex: 1 1 auto;
+		width: auto;
+		padding-top:0px;
+	}
 
-		<meta charset="utf-8">
-		
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-
-		<meta name="description" content="This site has a list of all the new airing/streaming anime in Japan, and which fansub groups are subbing (or plan to sub) them.">
-		<meta name="keywords" content="fansub, database, list, Japan, simulcast, world">
-
-		<link rel="stylesheet" href="external/bootstrap.min.css">
-		<link href="starter-template.css" rel="stylesheet">
+	.mdl-card--horizontal-2 {
+		flex-direction: row;
+		flex-wrap: wrap;
+		min-height: 0px;
+	}
+	.mdl-card__title-text{
+		align-self: auto;
+		font-size: 16px;
+		font-weight: 400;
+	}
+	.mdl-card__media img{
+		max-width: 100%;
+	}
+	.fansub-project a:not(:first-child)::before {
+		content: " & ";
+	}
+	.release a{
+		color: #4CAF50;
+	}
+	.dropped a{
+		color: #F44336;
+	}
+	.simulcast ::before{
+		content: "Simulcast: ";
+		color: #2196F3;
+	}
+	.simulcast a{
+		color: #2196F3;
+	}
+	.uncertain a{
+		color: #BDBDBD;
+	}
+		</style>
 	</head>
-
 	<body>
-		<nav class="navbar navbar-inverse navbar-fixed-top">
-			<div class="container">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="#">The Fansub Database</a>
+		<div id="app">
+			<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-tabs">
+				<header class="mdl-layout__header">
+					<div class="mdl-layout__header-row">
+						<span class="mdl-layout-title">Automne 2014</span>
+						<div class="mdl-layout-spacer"></div>
+						<div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+							<label class="mdl-button mdl-js-button mdl-button--icon" for="search">
+								<i class="material-icons">search</i>
+							</label>
+							<div class="mdl-textfield__expandable-holder">
+								<input class="mdl-textfield__input" type="text" id="search" v-model="animeFilter">
+								<label class="mdl-textfield__label" for="search">Enter your query...</label>
+							</div>
+						</div>
+					</div>
+					<div class="mdl-layout__tab-bar mdl-js-ripple-effect">
+						<a href="#fixed-tab-1" class="mdl-layout__tab is-active">{{label_tv?label_tv:'TV'}}</a>
+						<a href="#fixed-tab-2" class="mdl-layout__tab">{{label_ova?label_ova:'ONA/OVA/SP'}}</a>
+						<a href="#fixed-tab-3" class="mdl-layout__tab">{{label_movie?label_movie:'Movie'}}</a>
+					</div>
+				</header>
+				<div class="mdl-layout__drawer">
+					<nav class="mdl-navigation">
+						<a class="mdl-navigation__link" href="">À propos</a>
+						<a class="mdl-navigation__link" href="">Archives</a>
+						<a class="mdl-navigation__link" href="">Contact</a>
+						<a class="mdl-navigation__link" href="">Github</a>
+					</nav>
 				</div>
-				<div id="navbar" class="navbar-collapse collapse">
-					<ul class="nav navbar-nav">
-						<li class="active"><a href="#">Home</a></li>
-						<li><a href="#about">About</a></li>
-						<li><a href="#contact">Contact</a></li>
-					</ul>
-				</div>
-			</div>
-		</nav>
-
-		<div class="container">
-			<div class="starter-template">
-				<h1>The Fansub Database</h1>
-				<h2>Introduction</h2>
-				<p class="lead">
-					Welcome to our site.
-					<br>
-					This site has a list of all the new airing/streaming anime in Japan, and which fansub groups are subbing (or plan to sub) them.
-					<br>
-					Anyone may edit, but you must sign up first on GitHub or send us a mail.
-					<br>
-					We are only adapting fansubDB website into others language. If you don't see yours, just do a Pull Request ;) 
-				</p>
-
-				<h2>Can I help you?</h2>
-				<p class="lead">
-					Of course !
-					<br>
-					Don't hesitate to improve it, host it, modify it (and please inform me).
-					<br><br>
-					You can add your own language and fansub: just follow the french "fr" version, and e-mail me or <a href="https://github.com/fansubdb/fansubdb.github.io/issues/new" title="open an issue">open an issue</a> on GitHub.
-					<br><br>
-					My repo is on <a href="https://github.com/fansubdb/fansubdb.github.io">https://github.com/fansubdb/fansubdb.github.io</a>.
-				</p>
-
-				<h2>See the "About" page</h2>
-				<p class="lead">
-					<ul>
-						<li>French: see the page <a href="fr/a-propos.html" >here</a></li>
-					</ul>
-				</p>
-
-				<h2>Others things?</h2>
-				<p class="lead">
-					By <a href="mailto:fansubdb@mail-me.com" title="Email-me!">e-mail</a> :)
-				</p>
+				<main class="mdl-layout__content">
+					<section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
+						<div class="page-content">
+							<div class="mdl-grid">
+								<div class="mdl-cell mdl-cell--4-col mdl-cell--12-col-phone mdl-cell--12-col-tablet" v-for="anime in filterWith(animeList)">
+									<anime-card v-bind:anime="anime"></anime-card>
+								</div>
+							</div>
+						</div>
+					</section>
+					<section class="mdl-layout__tab-panel" id="fixed-tab-2">
+						<div class="page-content">
+							<div class="mdl-grid">
+								<div class="mdl-cell mdl-cell--4-col mdl-cell--12-col-phone mdl-cell--12-col-tablet" v-for="anime in filterWith(ovaList)">
+									<anime-card v-bind:anime="anime"></anime-card>
+								</div>
+							</div>
+						</div>
+					</section>
+					<section class="mdl-layout__tab-panel" id="fixed-tab-3">
+						<div class="page-content">
+							<div class="mdl-grid">
+								<div class="mdl-cell mdl-cell--4-col mdl-cell--12-col-phone mdl-cell--12-col-tablet" v-for="anime in filterWith(movieList)">
+									<anime-card v-bind:anime="anime"></anime-card>
+								</div>
+							</div>
+						</div>
+					</section>
+				</main>
 			</div>
 		</div>
-
-		<script src="external/jquery.min.js"></script>
-		<script src="external/bootstrap.min.js"></script>
-
+		<script src="https://unpkg.com/vue"></script>
+		<script src="https://unpkg.com/vue-resource@1.3.0/dist/vue-resource.min.js"></script>
+		<script id="anime-card-template" type="text/x-vue-template">
+			<div class="mdl-card mdl-shadow--2dp mdl-card--horizontal">
+				<div class="mdl-card__media">
+					<img v-bind:src="anime.image?anime.image:'https://placehold.it/150x200'" alt="img" onerror="this.onerror=null;this.src='https://placehold.it/150x200';">
+				</div>
+				<div class="mdl-card__title">
+					<h2 class="mdl-card__title-text" v-on:click="clickName(anime.name)">{{anime.name}}</h2>
+				</div>
+				<div class="mdl-card__supporting-text" style="overflow-y:auto;">
+					<div v-if="anime.group.length == 0">
+						<span style="color:#B71C1C">Not avaliable</span>
+					</div>
+					<div v-for="group in anime.group" class="fansub-project"  v-bind:class="group.status">
+						<a v-for="fansub in group.detail" :href="fansub.url ? fansub.url : null" target="_blank">
+							{{fansub.name}}
+						</a>
+					</div>
+				</div>
+			</div>
+		</script>
+		<script>
+		Vue.component('anime-card', {
+			props: ['anime'],
+			template: '#anime-card-template',
+			methods: {
+				clickName: function (name) {
+					//You can add function to copy anime name to clip board here.
+					console.log(name);
+				}
+			}
+		});
+		var app = new Vue({
+			el: '#app',
+			data: {
+				message: 'Hello Vue!',
+				animeList: [],
+				ovaList: [],
+				movieList: [],
+				label_tv: null,
+				label_ova: null,
+				label_movie: null,
+				animeFilter: ""
+			},
+			methods:{
+				filterWith: function(data){
+					var regex = new RegExp(this.animeFilter,"i");
+					return data.filter(function(anime){
+						return regex.test(anime.name);
+					});
+				}
+			},
+			mounted: function() {
+				this.$http.get('https://fansubdb.github.io/fr/2014/automne.json').then(function(response){
+					console.log(response.body);
+					this.ovaList = response.body.ova;
+					this.animeList = response.body.tv;
+					this.movieList = response.body.movie;
+					this.label_tv = response.body.lbl_tv;
+					this.label_ova = response.body.lbl_ova;
+					this.label_movie = response.body.lbl_movie;
+				});
+			}
+		});
+		</script>
 	</body>
 </html>
